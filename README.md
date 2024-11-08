@@ -3,7 +3,7 @@
 
 A modern, responsive website for showcasing and booking vacation rental properties, focused on user experience and comprehensive property information.
 
-**[Live Site]()**
+**[Live Site](https://siddiqua14.github.io/Assignment02/)**
 
 ## Table of Contents
 - [Features](#features)
@@ -38,7 +38,6 @@ A modern, responsive website for showcasing and booking vacation rental properti
 
 ## Project Structure
 
-```plaintext
  Project|--><br>
         ├── index.html<br>
         ├── style.css<br>
