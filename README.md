@@ -73,6 +73,4 @@ A modern, responsive website for showcasing and booking vacation rental properti
 To clone this project to your local machine, follow these steps:
 
 1. **Open terminal (Command Prompt, PowerShell, or Terminal)**.
-3. **Clone the repository**:
-   ```
-   git clone https://github.com/siddiqua14/Assignment02.git
+3. **Clone the repository**: git clone https://github.com/siddiqua14/Assignment02.git
