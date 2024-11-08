@@ -18,19 +18,19 @@
             <div class="navbar-left">
                 <!-- logo -->
             </div>
-    
+
             <div class="navbar-right">
                 <!-- Checkbox hack for mobile menu -->
                 <input type="checkbox" id="nav-toggle" class="nav-toggle">
                 <label for="nav-toggle" class="nav-toggle-label">
-                    <span class="hamburger"></span>
+                    <i class="fa-regular fa-circle-user"></i>
                 </label>
-    
+
                 <ul class="nav-links">
                     <li><a href="#" class="nav-link" id="location-btn">
-                        <i class="fa fa-globe" aria-hidden="true"></i>
-                        <span id="location-display">United States</span>
-                    </a></li>
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span id="location-display">United States</span>
+                        </a></li>
                     <li><a href="#" class="nav-link">Trip Boards</a></li>
                     <li><a href="#" class="nav-link">List your property</a></li>
                     <li><a href="#" class="nav-link">Help</a></li>
@@ -40,23 +40,24 @@
             </div>
         </div>
     </nav>
-    
+
     <div class="nav-modal-overlay" id="nav-modal-overlay">
         <div class="nav-modal">
             <button class="close-btn" id="close-btn">✕</button>
             <h2>Display settings</h2>
-            <p class="warning-message">
-                ⚠ Changing your region could change your rewards program.<br>
-                To stay with your current rewards program, keep your region the same.
-                One Key is currently only available in select regions.
-            </p>
-    
+            <div class="warning-message">
+                <h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Changing your region could change your
+                    rewards program</h3>
+                <p>To stay with your current rewards program, keep your region the same. One Key is currently only
+                    available in select regions.</p>
+            </div>
+
             <label for="region-select">Region</label>
             <div id="region-select-container"></div> <!-- Placeholder for the select element -->
-    
+
             <label for="currency-input">Currency</label>
             <input type="text" id="currency-input" value="EUR" disabled>
-    
+
             <button class="save-btn" id="save-btn">Save</button>
         </div>
     </div>
@@ -67,14 +68,16 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M19 12H5M12 19l-7-7 7-7" />
                 </svg>
-                See all properties
+               
+                <span class="desktop">See all properties</span>
             </a>
 
             <div class="action-buttons">
                 <!-- Added share-btn class here -->
                 <button class="btn-secondary share-btn">
                     <i class="fa fa-share-alt"></i>
-                    <span>Share</span>
+                   
+                    <span class="desktop-only">Share</span>
                 </button>
                 <div class="custom-share-overlay" id="shareModal">
                     <div class="custom-share-modal">
@@ -83,41 +86,52 @@
                             <button class="custom-close-btn">✕</button>
                         </div>
                         <div class="property-preview">
-                            <img src="/api/placeholder/60/60" alt="Property" class="preview-image">
+                            <img src="./img/hotel.jpg" alt="Property" class="preview-image">
                             <div class="preview-info">
-                                <h3>Juneau Vacation Home</h3>
-                                <p>Stunning View + Beach Access</p>
+                                <h3>Juneau Vacation Home: Stunning View + Beach Access</h3>
+                                <p>United States of America</p>
+                                <p>9.8/10</p>
                             </div>
                         </div>
-            
                         <div class="share-options">
-                            
+                            <a href="#" class="share-option" data-platform="messages">
+                                <div class="share-icon">
+                                    <img src="./icon/messages.png" alt="Messages">
+                                </div>
+                                <span class="share-label">Messages</span>
+                            </a>
                             <a href="#" class="share-option" data-platform="whatsapp">
-                                <div class="share-icon" style="background: #25D366">
-                                    <img src="/icon/whatsapp_3536445.png" alt="WhatsApp">
+                                <div class="share-icon">
+                                    <img src="./icon/whatsapp_3536445.png" alt="WhatsApp">
                                 </div>
                                 <span class="share-label">WhatsApp</span>
                             </a>
                             <a href="#" class="share-option" data-platform="messenger">
-                                <div class="share-icon" style="background: #0078FF">
-                                    <img src="/icon/messenger.png" alt="Messenger">
+                                <div class="share-icon">
+                                    <img src="./icon/messenger.png" alt="Messenger">
                                 </div>
                                 <span class="share-label">Messenger</span>
                             </a>
                             <a href="#" class="share-option" data-platform="facebook">
-                                <div class="share-icon" style="background: #1877F2">
-                                    <img src="/icon/facebook.png" alt="Facebook">
+                                <div class="share-icon">
+                                    <img src="./icon/facebook.png" alt="Facebook">
                                 </div>
                                 <span class="share-label">Facebook</span>
                             </a>
+                            <a href="#" class="share-option" data-platform="whatsapp">
+                                <div class="share-icon">
+                                    <img src="./icon/instagram.png" alt="WhatsApp">
+                                </div>
+                                <span class="share-label">Instagram</span>
+                            </a>
                             <a href="#" class="share-option" data-platform="x">
-                                <div class="share-icon" style="background: #000000">
-                                    <img src="/icon/twitter.png" alt="X">
+                                <div class="share-icon">
+                                    <img src="./icon/twitter.png" alt="X">
                                 </div>
                                 <span class="share-label">X</span>
                             </a>
                         </div>
-            
+
                         <div class="copy-link">
                             <span class="link-text">https://example.com/property/juneau-vacation</span>
                             <button class="copy-btn">Copy link</button>
@@ -125,11 +139,13 @@
                     </div>
                 </div>
                 <button class="save" aria-label="Save property">
-                    <svg class="heart-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg class="heart-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
                         <path
                             d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                     </svg>
-                    <span>Save</span>
+                    
+                    <span class="desktop-only">Save</span>
                 </button>
             </div>
         </div>
@@ -139,28 +155,33 @@
         <div class="gallery-container">
             <div class="gallery-grid">
                 <div class="main-image image-container">
-                    <img src="/img/hotel.jpg" alt="Lakefront view with deck and red chair">
-                    <div class="more-photos mobile-more">+30 more</div>
+                    <img src="./img/hotel.jpg" alt="Lakefront view with deck and red chair">
+                    <div class="more-photos mobile-more">
+                    <i class="fa-regular fa-images"></i> 30+</div>
+                    <div class="dots-indicator"></div> <!-- 3 dots indicator -->
                 </div>
+                
                 <div class="thumbnail-column">
                     <div class="thumbnail image-container">
-                        <img src="img/hotel1.png" alt="Cottage exterior">
+                        <img src="./img/hotel1.png" alt="Cottage exterior">
                     </div>
                     <div class="thumbnail image-container">
-                        <img src="img/hotel1.png" alt="Kitchen view">
+                        <img src="./img/hotel2.png" alt="Kitchen view">
 
                     </div>
                 </div>
                 <div class="thumbnail-column">
                     <div class="thumbnail image-container">
-                        <img src="img/hotel1.png" alt="Living room interior">
+                        <img src="./img/hotel3.png" alt="Living room interior">
                     </div>
                     <div class="thumbnail image-container">
-                        <img src="img/hotel1.png" alt="Bedroom">
-                        <div class="more-photos desktop-more">+30 more</div>
+                        <img src="./img/hotel5.jpeg" alt="Bedroom">
+                        <div class="more-photos desktop-more"><i class="fa-regular fa-images"></i> 30+</div>
                     </div>
                 </div>
+               
             </div>
+            
         </div>
         <div class="modal" id="gallery-modal">
 
@@ -175,7 +196,11 @@
                 </div>
             </div>
         </div>
-
+        <div class="tabs">
+            <div class="tab active">Overview</div>
+            <div class="tab">Amenities</div>
+            <div class="tab">Policies</div>
+        </div>
         <div class="property-details">
             <div class="details-left">
                 <a href="#" class="back-link">Entire home</a>
@@ -308,9 +333,8 @@
                     </div>
 
                     <div class="cancellation-info">
-                        <span class="free-tag">Free cancellation</span>
                         <span class="info-icon">ⓘ</span>
-                        <p class="cancel-notice">Up to Mar. Nov 4</p>
+                        <p class="non-refundable">Non-refundable</p>
                     </div>
 
                     <div class="availability-status">
@@ -318,55 +342,83 @@
                         <span>Your dates are available</span>
                     </div>
 
-                    <div class="booking-form">
-                        <div class="dates">
-                            <div class="date-input">
-                                <label>Start date</label>
-                                <div class="input-wrapper">
-                                    <i class="calendar-icon"></i>
-                                    <input type="text" value="Nov 18" readonly>
-                                </div>
-                            </div>
-                            <div class="date-input">
-                                <label>End date</label>
-                                <div class="input-wrapper">
-                                    <i class="calendar-icon"></i>
-                                    <input type="text" value="Nov 20" readonly>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="travelers">
+                    <div class="dates">
+                        <div class="date-input">
+                            <label>Start date</label>
                             <div class="input-wrapper">
-                                <input type="text" value="2 travelers" readonly>
+
+                                <input type="date" id="start-date" placeholder="Select start date">
                             </div>
                         </div>
+                        <div class="date-input">
+                            <label>End date</label>
+                            <div class="input-wrapper">
 
-                        <div class="total-section">
-                            <div class="total-row">
-                                <span>Total</span>
-                                <span class="total-amount">$543</span>
-                            </div>
-                            <div class="total-note">
-                                Total includes fees, not tax
-                                <a href="#" class="price-details">Price details</a>
+                                <input type="date" id="end-date" placeholder="Select end date">
                             </div>
                         </div>
-
-                        <button class="book-now-btn">Book now</button>
-                        <p class="charge-notice">You will not be charged yet</p>
                     </div>
 
-                </div>
+                    <div class="travelers-section">
+                        <div class="travelers-input" id="travelersToggle">
+                            <input type="text" value="2 travelers" readonly>
+                        </div>
 
-                <div class="contact-section">
-                    <a href="#" class="contact-host">Contact host</a>
-                </div>
+                        <div class="travelers-content" id="travelersContent">
+                            <div class="traveler-type">
+                                <div class="traveler-label">Adults</div>
+                                <div class="traveler-controls">
+                                    <button class="traveler-btn decrement" data-type="adults">−</button>
+                                    <span class="traveler-count adults">2</span>
+                                    <button class="traveler-btn increment" data-type="adults">+</button>
+                                </div>
+                            </div>
 
-                <div class="property-id">
-                    Property # 0832810-fha
+                            <div class="traveler-type">
+                                <div class="traveler-label">
+                                    <span>Children</span>
+                                    <span class="age-info">Ages 0-17</span>
+                                </div>
+                                <div class="traveler-controls">
+                                    <button class="traveler-btn decrement disabled" data-type="children">−</button>
+                                    <span class="traveler-count children">0</span>
+                                    <button class="traveler-btn increment" data-type="children">+</button>
+                                </div>
+                            </div>
+
+                            <div class="pets-option">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="petsCheckbox">
+                                    <span class="checkbox-text">I am traveling with pets</span>
+                                </label>
+                            </div>
+
+                            <button class="done-btn">Done</button>
+                        </div>
+                    </div>
+
+                    <div class="total-section">
+                        <div class="total-row">
+                            <span>Total</span>
+                            <span class="total-amount">$538</span>
+                        </div>
+                        <div class="total-note">
+                            Total includes fees, not tax
+                            <a href="#" class="price-details">Price details</a>
+                        </div>
+                    </div>
+
+                    <button class="book-now-btn">Book now</button>
+                    <p class="charge-notice">You will not be charged yet</p>
+                </div>
+                <div class="container">
+                    <a href="#" class="contact-link">Contact host</a>
+                    <div class="property-id">Property # 0832810-fha</div>
                 </div>
             </div>
+
+
         </div>
     </main>
 

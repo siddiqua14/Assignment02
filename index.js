@@ -118,20 +118,22 @@ document.addEventListener('DOMContentLoaded', () => {
             let shareUrl;
             switch (platform) {
                 case 'facebook':
-                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
                     break;
                 case 'whatsapp':
-                    shareUrl = `https://wa.me/?text=${title}%20${url}`;
+                    shareUrl = `https://wa.me/?text=${encodeURIComponent(title)}%20${encodeURIComponent(url)}`;
                     break;
                 case 'messenger':
-                    shareUrl = `https://www.facebook.com/dialog/send?link=${url}&app_id=YOUR_APP_ID`;
+                    shareUrl = `https://www.facebook.com/dialog/send?link=${encodeURIComponent(url)}&app_id=YOUR_APP_ID`;
                     break;
-                case 'x':
-                    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+                case 'x': // This is for Twitter (formerly known as X)
+                    shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
                     break;
                 case 'messages':
-                    shareUrl = `sms:?&body=${title}%20${url}`;
+                    shareUrl = `sms:?&body=${encodeURIComponent(title)}%20${encodeURIComponent(url)}`;
                     break;
+                default:
+                    return;
             }
 
             if (shareUrl) {
@@ -145,6 +147,7 @@ class SaveButton {
     constructor(propertyId) {
         this.propertyId = propertyId;
         this.button = document.querySelector('.save');
+        this.saveText = this.button.querySelector('.desktop-only'); // Target the 'Save' text element
         this.setupEventListeners();
         this.loadSavedState();
     }
@@ -157,15 +160,25 @@ class SaveButton {
         const savedState = localStorage.getItem(`property-save-${this.propertyId}`);
         if (savedState === 'true') {
             this.button.classList.add('active');
+            this.saveText.textContent = 'Saved'; // Change the text to "Saved" if already saved
+        } else {
+            this.saveText.textContent = 'Save'; // Ensure it's "Save" if not saved
         }
     }
 
     toggleSave() {
         this.button.classList.toggle('active');
-        
+
         // Save state to localStorage
         const isActive = this.button.classList.contains('active');
         localStorage.setItem(`property-save-${this.propertyId}`, isActive);
+
+        // Update the text content
+        if (isActive) {
+            this.saveText.textContent = 'Saved'; // Change text to "Saved"
+        } else {
+            this.saveText.textContent = 'Save'; // Change text back to "Save"
+        }
 
         // Optional: Animate the button
         if (isActive) {
@@ -181,17 +194,14 @@ class SaveButton {
 const saveButton = new SaveButton('unique-property-id');
 
 
-
-
-
 // Gallery-related code
 document.addEventListener('DOMContentLoaded', () => {
     const images = [
-        { url: 'img/hotel.jpg', title: 'Beautiful lakefront view with private deck' },
-        { url: 'img/hotel2.png', title: 'Cozy cottage exterior with charming red door' },
-        { url: 'img/hotel3.png', title: 'Spacious living room with panoramic views' },
-        { url: 'img/hotel.png', title: 'Spacious living room with panoramic views' },
-        { url: 'img/hotel1.png', title: 'Master bedroom with ensuite' }
+        { url: './img/hotel.jpg', title: 'Beautiful lakefront view with private deck' },
+        { url: './img/hotel1.png', title: 'Cozy cottage exterior with charming red door' },
+        { url: './img/hotel2.png', title: 'Spacious living room with panoramic views' },
+        { url: './img/hotel3.png', title: 'Spacious living room with panoramic views' },
+        { url: './img/hotel5.jpeg', title: 'Master bedroom with ensuite' }
     ];
 
     let currentImageIndex = 0;
@@ -269,4 +279,131 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize the first image on page load
     updateModalImage();
+});
+
+
+//booking card 
+document.addEventListener('DOMContentLoaded', () => {
+    const travelersToggle = document.getElementById('travelersToggle');
+    const travelersContent = document.getElementById('travelersContent');
+    const doneBtn = document.querySelector('.done-btn');
+    const decrementBtns = document.querySelectorAll('.traveler-btn.decrement');
+    const incrementBtns = document.querySelectorAll('.traveler-btn.increment');
+    const travelersInput = document.querySelector('.travelers-input input');
+    const totalSection = document.querySelector('.total-section');
+    const bookNowBtn = document.querySelector('.book-now-btn');
+    const chargeNotice = document.querySelector('.charge-notice');
+    //date
+    const startDate = document.getElementById('start-date');
+    const endDate = document.getElementById('end-date');
+
+    // Set min date for start date (today)
+    const today = new Date().toISOString().split('T')[0];
+    startDate.min = today;
+
+    // Update end date min value when start date changes
+    startDate.addEventListener('change', function () {
+        endDate.min = this.value;
+
+        // If end date is before new start date, update it
+        if (endDate.value && endDate.value < this.value) {
+            endDate.value = this.value;
+        }
+    });
+
+    // Display selected date in a shorter format
+    function formatDate(date) {
+        const options = { month: 'short', day: 'numeric' };
+        return new Date(date).toLocaleDateString('en-US', options);
+    }
+
+    [startDate, endDate].forEach(input => {
+        input.addEventListener('change', function () {
+            if (this.value) {
+                const formattedDate = formatDate(this.value);
+                this.setAttribute('data-formatted', formattedDate);
+            }
+        });
+    });
+
+    // Toggle travelers content
+    travelersToggle.addEventListener('click', () => {
+        travelersContent.classList.toggle('active');
+        totalSection.style.display = travelersContent.classList.contains('active') ? 'none' : 'block';
+        bookNowBtn.style.display = travelersContent.classList.contains('active') ? 'none' : 'block';
+        chargeNotice.style.display = travelersContent.classList.contains('active') ? 'none' : 'block';
+    });
+
+    // Handle increment/decrement
+    function updateCount(type, increment) {
+        const countElement = document.querySelector(`.traveler-count.${type}`);
+        let count = parseInt(countElement.textContent);
+
+        if (increment) {
+            count++;
+        } else if (type === 'adults' && count > 1) {
+            count--;
+        } else if (type === 'children' && count > 0) {
+            count--;
+        }
+
+        countElement.textContent = count;
+
+        // Update total travelers
+        const adultsCount = parseInt(document.querySelector('.traveler-count.adults').textContent);
+        const childrenCount = parseInt(document.querySelector('.traveler-count.children').textContent);
+        travelersInput.value = `${adultsCount + childrenCount} travelers`;
+
+        // Handle disabled state for children decrement button
+        const childrenDecrementBtn = document.querySelector('.traveler-btn.decrement[data-type="children"]');
+        childrenDecrementBtn.classList.toggle('disabled', childrenCount === 0);
+
+        // Save to localStorage
+        saveToLocalStorage(type, count);
+    }
+
+    incrementBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            updateCount(btn.dataset.type, true);
+        });
+    });
+
+    decrementBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (!btn.classList.contains('disabled')) {
+                updateCount(btn.dataset.type, false);
+            }
+        });
+    });
+
+    // Close section on done
+    doneBtn.addEventListener('click', () => {
+        travelersContent.classList.remove('active');
+        travelersContent.classList.remove('active');
+        totalSection.style.display = 'block';
+        bookNowBtn.style.display = 'block';
+        chargeNotice.style.display = 'block';
+    });
+
+    // Save to localStorage
+    function saveToLocalStorage(type, count) {
+        localStorage.setItem(`travelers_${type}`, count);
+    }
+
+    // Load from localStorage on page load
+    function loadFromLocalStorage() {
+        const adultsCount = localStorage.getItem('travelers_adults') || 2;
+        const childrenCount = localStorage.getItem('travelers_children') || 0;
+
+        document.querySelector('.traveler-count.adults').textContent = adultsCount;
+        document.querySelector('.traveler-count.children').textContent = childrenCount;
+        travelersInput.value = `${parseInt(adultsCount) + parseInt(childrenCount)} travelers`;
+
+        // Set initial disabled state for children decrement button
+        const childrenDecrementBtn = document.querySelector('.traveler-btn.decrement[data-type="children"]');
+        childrenDecrementBtn.classList.toggle('disabled', parseInt(childrenCount) === 0);
+    }
+
+    // Load saved values on page load
+    loadFromLocalStorage();
 });
